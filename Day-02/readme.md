@@ -1,15 +1,8 @@
-results = []
+import pandas as pd
  
-for name, prompt in prompts.items():
-    print(f"Running '{name}' on {FOUNDATIONAL_MODEL} (foundational)...")
-    f_res = call_foundational(prompt)
-    f_res["task"] = name
-    results.append(f_res)
+df = pd.DataFrame(results)[
+    ["task", "type", "model", "elapsed_sec", "prompt_tokens",
+     "completion_tokens", "reasoning_tokens", "total_tokens"]
+]
+df
  
-    print(f"Running '{name}' on {REASONING_MODEL} (reasoning)...")
-    r_res = call_reasoning(prompt)
-    r_res["task"] = name
-    results.append(r_res)
- 
-print("\nDone.")
-    print(f"--- {k} ---\n{v}\n")
