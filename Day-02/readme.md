@@ -1,31 +1,49 @@
-prompts = {
-    "logic_puzzle": (
-        "Five friends (Ana, Ben, Cara, Dan, Ella) sit in a row of 5 seats "
-        "numbered 1 to 5 left to right. Clues: "
-        "(1) Ana sits immediately left of Ben. "
-        "(2) Cara does not sit at either end. "
-        "(3) Dan sits somewhere to the right of Ella. "
-        "(4) Ella is not in seat 1. "
-        "(5) Ben is not in seat 5. "
-        "Work out the exact seating order from seat 1 to seat 5, and briefly "
-        "justify each step."
-    ),
-    "math_problem": (
-        "A tank is filled by Pipe A in 6 hours and by Pipe B in 4 hours. "
-        "Pipe C, working alone, can drain a full tank in 8 hours. "
-        "If all three pipes are opened together starting with an empty tank, "
-        "how long will it take to fill the tank? Show your work and give an "
-        "exact fraction, then a decimal rounded to 2 places."
-    ),
-    "planning_task": (
-        "You must schedule 4 tasks (T1: 3 hrs, T2: 2 hrs, T3: 4 hrs, T4: 1 hr) "
-        "across 2 workers over an 8-hour day so that: total time per worker "
-        "does not exceed 8 hours, T3 must start before T1 can start, and "
-        "T2 and T4 must be done by the same worker. Provide a valid "
-        "assignment and timeline, and explain why it satisfies every "
-        "constraint."
-    ),
-}
+import time
+ 
+def call_foundational(prompt, model=FOUNDATIONAL_MODEL, temperature=0.2, max_tokens=800):
+    start = time.time()
+    resp = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+        temperature=temperature,
+        max_tokens=max_tokens,
+    )
+    elapsed = time.time() - start
+    return {
+        "model": model,
+        "type": "foundational",
+        "answer": resp.choices[0].message.content,
+        "elapsed_sec": round(elapsed, 2),
+        "prompt_tokens": resp.usage.prompt_tokens,
+        "completion_tokens": resp.usage.completion_tokens,
+        "reasoning_tokens": 0,
+        "total_tokens": resp.usage.total_tokens,
+    }
+ 
+def call_reasoning(prompt, model=REASONING_MODEL, reasoning_effort="medium", max_completion_tokens=2000):
+    start = time.time()
+    resp = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+        reasoning_effort=reasoning_effort,
+        max_completion_tokens=max_completion_tokens,
+    )
+    elapsed = time.time() - start
+    usage = resp.usage
+    reasoning_tokens = 0
+    details = getattr(usage, "completion_tokens_details", None)
+    if details is not None:
+        reasoning_tokens = getattr(details, "reasoning_tokens", 0) or 0
+    return {
+        "model": model,
+        "type": "reasoning",
+        "answer": resp.choices[0].message.content,
+        "elapsed_sec": round(elapsed, 2),
+        "prompt_tokens": usage.prompt_tokens,
+        "completion_tokens": usage.completion_tokens,
+        "reasoning_tokens": reasoning_tokens,
+        "total_tokens": usage.total_tokens,
+    }
  
 for k, v in prompts.items():
     print(f"--- {k} ---\n{v}\n")
