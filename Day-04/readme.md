@@ -6,6 +6,10 @@ try:
 except Exception:
     has_widgets = False
 
+# Predefine widget placeholders so update_plot can reference them safely
+out = None
+filter_widget = None
+
 def plot_roadmap(filtered_roadmap):
     import matplotlib.dates as mdates
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -40,7 +44,7 @@ def update_plot(confidence):
     filtered["start"] = pd.to_datetime(filtered["start"]) 
     filtered["end"] = pd.to_datetime(filtered["end"]) 
     filtered["duration_days"] = (filtered["end"] - filtered["start"]).dt.days
-    if has_widgets:
+    if has_widgets and filter_widget is not None and out is not None:
         clear_output(wait=True)
         display(filter_widget, out)
     plot_roadmap(filtered)
