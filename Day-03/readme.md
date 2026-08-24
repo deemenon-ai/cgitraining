@@ -1,23 +1,17 @@
-okrs = pd.DataFrame([
-    {"objective": "Make checkout the fastest in our category",
-     "key_result": "Cut checkout time from 90s to 30s",
-     "baseline": 90, "current": 52, "target": 30, "unit": "seconds", "lower_is_better": True,
-     "owner": "Checkout squad", "quarter": "Q3"},
-    {"objective": "Make checkout the fastest in our category",
-     "key_result": "Raise checkout conversion rate",
-     "baseline": 61, "current": 71, "target": 80, "unit": "%", "lower_is_better": False,
-     "owner": "Checkout squad", "quarter": "Q3"},
-    {"objective": "Make checkout the fastest in our category",
-     "key_result": "Increase repeat-purchase rate",
-     "baseline": 22, "current": 27, "target": 35, "unit": "%", "lower_is_better": False,
-     "owner": "Growth squad", "quarter": "Q4"},
-])
+fig, ax = plt.subplots(figsize=(9, 4))
+y_pos = np.arange(len(okrs))
+colors = ["#2C5F2D" if p >= 70 else "#E7B10A" if p >= 40 else "#B85042" for p in okrs.progress_pct]
  
-def progress_pct(row):
-    span = row.target - row.baseline
-    done = row.current - row.baseline
-    pct = 0 if span == 0 else (done / span) * 100
-    return round(max(0, min(100, pct)), 1)
+ax.barh(y_pos, okrs.progress_pct, color=colors, height=0.5)
+ax.barh(y_pos, 100, color="#EEEEEE", height=0.5, zorder=0)
+ax.barh(y_pos, okrs.progress_pct, color=colors, height=0.5, zorder=1)
+ax.set_yticks(y_pos)
+ax.set_yticklabels(okrs.key_result)
+ax.set_xlim(0, 100)
+ax.set_xlabel("Progress toward target (%)")
+ax.set_title("Key Result progress — 🟢 on track  🟡 at risk  🔴 behind", fontsize=12, fontweight="bold")
+for i, (p, cur, tgt, unit) in enumerate(zip(okrs.progress_pct, okrs.current, okrs.target, okrs.unit)):
+    ax.text(102, i, f"{cur}{unit} → target {tgt}{unit}", va="center", fontsize=9)
+plt.tight_layout()
+plt.show()
  
-okrs["progress_pct"] = okrs.apply(progress_pct, axis=1)
-okrs
