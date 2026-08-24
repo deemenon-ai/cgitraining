@@ -1,17 +1,18 @@
-fig, ax = plt.subplots(figsize=(9, 4))
-y_pos = np.arange(len(okrs))
-colors = ["#2C5F2D" if p >= 70 else "#E7B10A" if p >= 40 else "#B85042" for p in okrs.progress_pct]
- 
-ax.barh(y_pos, okrs.progress_pct, color=colors, height=0.5)
-ax.barh(y_pos, 100, color="#EEEEEE", height=0.5, zorder=0)
-ax.barh(y_pos, okrs.progress_pct, color=colors, height=0.5, zorder=1)
-ax.set_yticks(y_pos)
-ax.set_yticklabels(okrs.key_result)
-ax.set_xlim(0, 100)
-ax.set_xlabel("Progress toward target (%)")
-ax.set_title("Key Result progress — 🟢 on track  🟡 at risk  🔴 behind", fontsize=12, fontweight="bold")
-for i, (p, cur, tgt, unit) in enumerate(zip(okrs.progress_pct, okrs.current, okrs.target, okrs.unit)):
-    ax.text(102, i, f"{cur}{unit} → target {tgt}{unit}", va="center", fontsize=9)
-plt.tight_layout()
-plt.show()
- 
+roadmap = pd.DataFrame([
+    {"initiative": "One-click checkout",        "key_result": "Cut checkout time from 90s to 30s",
+     "start": "2026-07-01", "end": "2026-08-15", "confidence": "High"},
+    {"initiative": "Guest checkout (no signup)", "key_result": "Cut checkout time from 90s to 30s",
+     "start": "2026-08-01", "end": "2026-09-15", "confidence": "Medium"},
+    {"initiative": "Saved-payment autofill",     "key_result": "Raise checkout conversion rate",
+     "start": "2026-07-15", "end": "2026-08-30", "confidence": "High"},
+    {"initiative": "Trust badges & reviews",     "key_result": "Raise checkout conversion rate",
+     "start": "2026-09-01", "end": "2026-09-30", "confidence": "Medium"},
+    {"initiative": "Referral program",           "key_result": "Increase repeat-purchase rate",
+     "start": "2026-10-01", "end": "2026-11-15", "confidence": "Low"},
+    {"initiative": "Post-purchase loyalty tier",  "key_result": "Increase repeat-purchase rate",
+     "start": "2026-11-01", "end": "2026-12-15", "confidence": "Medium"},
+])
+roadmap["start"] = pd.to_datetime(roadmap["start"])
+roadmap["end"] = pd.to_datetime(roadmap["end"])
+roadmap["duration_days"] = (roadmap["end"] - roadmap["start"]).dt.days
+roadmap
