@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Homework Answers - Q3 & Q4</title>
+</head>
+<body>
+  <h1>Homework — Answers: Question 3 & Question 4</h1>
+
+  <h2>Question 3 — Healthcare Scheduling</h2>
+  <h3>Scenario</h3>
+  <p>Healthcare Scheduling — Patients wait an average of 12 minutes on hold to book an appointment. Describe the outcome you want, not the fix.</p>
+
+  <h3>Objective (Outcome)</h3>
+  <p>Reduce patient wait and friction during appointment booking so that >95% of patients can schedule an appointment within 2 minutes, increasing completed bookings and patient satisfaction.</p>
+
+  <h3>Key Results (3)</h3>
+  <ol>
+    <li>Reduce average on-hold time for appointment bookings from 12 minutes to &lt;= 2 minutes within 90 days.</li>
+    <li>Increase completed appointment bookings by 25% (bookings / call or session) within 90 days.</li>
+    <li>Increase patient satisfaction (post-booking CSAT) from baseline by 15 percentage points and reduce call abandonment rate by 50% within 90 days.</li>
+  </ol>
+
+  <h3>Suggested Initiatives (examples)</h3>
+  <ul>
+    <li>Enable web/self-service booking flow with real-time availability.</li>
+    <li>Implement asynchronous callback ("we'll call you") and SMS confirmation flows.</li>
+    <li>Staff scheduling optimization + triage bot to route urgent requests faster.</li>
+  </ul>
+
+  <h3>WSJF Calculation — Example for one initiative</h3>
+  <p>We compute WSJF = (Business Value + Time Criticality + Risk Reduction) / Job Size.</p>
+
+  <p>Example initiative: "Web self-service booking (MVP)"</p>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <tr><th>Metric</th><th>Score (1–10)</th><th>Rationale</th></tr>
+    <tr><td>Business Value</td><td>8</td><td>High — reduces support cost, increases completed bookings and revenue.</td></tr>
+    <tr><td>Time Criticality</td><td>7</td><td>High — current call volumes and backlog cause immediate business impact.</td></tr>
+    <tr><td>Risk Reduction / Opportunity Enablement</td><td>5</td><td>Moderate — reduces abandonment risk and enables later personalization features.</td></tr>
+    <tr><td>Job Size (relative)</td><td>3</td><td>Small-to-medium engineering effort for an MVP flow.</td></tr>
+  </table>
+
+  <p>Cost of Delay = 8 + 7 + 5 = 20</p>
+  <p>WSJF = 20 / 3 = 6.67</p>
+
+  <p>Interpretation: The RICE-like WSJF score (6.67) suggests this initiative should be prioritized ahead of larger lower-value efforts (higher WSJF = do it sooner).</p>
+
+  <h3>How to use WSJF in practice</h3>
+  <ul>
+    <li>Score all candidate initiatives on the same 1–10 scale to keep comparisons consistent.</li>
+    <li>Use `job_size` in the same units (story points / ideal weeks) across items.</li>
+    <li>Re-score after discovery; smaller MVPs often get higher WSJF because they deliver value quickly.</li>
+  </ul>
+
+  <hr />
+
+  <h2>Question 4 — IMDB Roadmap (modeled like the Netflix example)</h2>
+
+  <h3>Vision</h3>
+  <p>Make IMDB the world’s most trusted, comprehensive, and personalized discovery platform for movies, TV and creators — where every user finds the right story for the moment.</p>
+
+  <h3>Strategy (3 pillars)</h3>
+  <ol>
+    <li>Personalized discovery: surface the best titles and creators for each user via relevance and serendipity.</li>
+    <li>Comprehensive content & metadata: grow and enrich the catalog so IMDB becomes the definitive data source for titles, credits, and context.</li>
+    <li>Engagement & Monetization: deepen user engagement (reviews, lists, watchlists) while expanding sustainable monetization (ads, premium features, distribution partnerships).</li>
+  </ol>
+
+  <h3>Themes (12–18 months)</h3>
+  <ul>
+    <li><strong>Personalization & Recommendations</strong> — better candidate ranking, contextual recs (mood, device, time), and explanation surfaces.</li>
+    <li><strong>Metadata Depth & Quality</strong> — richer cast/crew, structured facts, scene-level data, credits verification.</li>
+    <li><strong>Creator & Community Tools</strong> — author pages, lists, community curation, editorial features.</li>
+    <li><strong>Monetization & Distribution</strong> — ad products, storefront/referral integrations, premium tiers.</li>
+    <li><strong>Platform Performance & Trust</strong> — scale APIs, reliability, content moderation, and provenance signals.</li>
+  </ul>
+
+  <h3>Objectives and Key Results (sample OKRs)</h3>
+  <h4>Objective A — Increase personalized discovery and engagement</h4>
+  <ol>
+    <li>KR1: Improve click-through rate on personalized recommendations by 30% in 6 months.</li>
+    <li>KR2: Increase weekly active users who use "For You" recommendations by 20% in 6 months.</li>
+    <li>KR3: Reduce time-to-first-relevant-title (session seconds until a user taps a recommended title) by 25%.</li>
+  </ol>
+
+  <h4>Objective B — Expand and verify metadata to be the canonical source</h4>
+  <ol>
+    <li>KR1: Increase title-level structured metadata coverage (genres, release dates, credits) from X% to X+20% in 9 months.</li>
+    <li>KR2: Add verified contributor/credit links for top 1M titles and creators.</li>
+    <li>KR3: Reduce metadata error rate (mismatch, missing fields) by 50%.</li>
+  </ol>
+
+  <h4>Objective C — Grow monetization while preserving engagement</h4>
+  <ol>
+    <li>KR1: Launch two ad formats and achieve $Y revenue / quarter within 6 months.</li>
+    <li>KR2: Increase conversion rate from discovery to streaming partner referrals by 15%.</li>
+    <li>KR3: Launch a premium membership MVP and reach N paying users within 9 months.</li>
+  </ol>
+
+  <h3>3-Quarter Roadmap (high-level initiatives)</h3>
+  <h4>Quarter 1</h4>
+  <ul>
+    <li>Build recommendation experiment framework and baseline models (A/B test harness).</li>
+    <li>Metadata audit & ingestion pipeline improvements for high-priority catalogs.</li>
+    <li>Prototype "For You" home feed.</li>
+  </ul>
+
+  <h4>Quarter 2</h4>
+  <ul>
+    <li>Deploy improved recommender (context + collaborative filtering + content signals) to a percent rollout.</li>
+    <li>Ship metadata verification UI and contributor linking tools for editorial team.</li>
+    <li>Introduce ad format pilot on selected markets.</li>
+  </ul>
+
+  <h4>Quarter 3</h4>
+  <ul>
+    <li>Expand personalized experiences across device surfaces (mobile app, smart TVs)</li>
+    <li>Roll out premium membership trial and partner storefront integrations</li>
+    <li>Deliver open API improvements for partners and developer ecosystem</li>
+  </ul>
+
+  <h3>Metrics & Signals</h3>
+  <ul>
+    <li>Engagement: CTR on recommendations, session length, WAU/DAU.</li>
+    <li>Quality: metadata coverage, error rate, user reported corrections.</li>
+    <li>Business: referral conversion rate, ad RPM, subscription ARPU.</li>
+    <li>Trust: content provenance, moderation incidents, editorial accuracy.</li>
+  </ul>
+
+  <h3>Risks & Mitigations</h3>
+  <ul>
+    <li>Risk: Personalization harms discovery diversity — Mitigation: add serendipity signals and editorial pockets.</li>
+    <li>Risk: Metadata scale/accuracy issues — Mitigation: prioritize high-impact catalogs, improve verification tooling, and provide contributor crowdsourcing with editorial checks.</li>
+    <li>Risk: Monetization reduces UX — Mitigation: run controlled experiments and cap ad load on sensitive flows.</li>
+  </ul>
+
+  <hr />
+  <p>Prepared by: [Your name]</p>
+  <p>Date: 2026-08-27</p>
+</body>
+</html>
