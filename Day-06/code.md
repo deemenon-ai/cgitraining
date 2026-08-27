@@ -1,8 +1,4 @@
 
-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
-
-# 1. Install dependencies (Colab-friendly)
-!pip install -q openai sentence-transformers faiss-cpu rank_bm25
 
 
  # 2. Set up your OpenAI API key
